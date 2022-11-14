@@ -126,7 +126,7 @@ const AllMovies = ({ moviesData, setMoviesData }) => {
                                                         icon: <CheckCircleOutlined style={{ color: 'green' }} />,
                                                     });
                                                 }
-                                            })}>add to favourites <HeartFilled style={{ color: "red" }} /></div>}
+                                            })}>add to favourites <HeartFilled style={{ color: moviesData?.favourite?.find((item) => item.releaseDate === data.releaseDate && item.title === data.title) ? "grey" : "red" }} /></div>}
                                     </div>
                                 </Card>
                             </Col>
