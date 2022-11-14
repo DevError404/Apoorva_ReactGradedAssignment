@@ -9,6 +9,7 @@ const AllMovies = ({ moviesData, setMoviesData }) => {
     const { Meta } = Card;
     const [selectedMovies, setSelectedMovies] = useState([])
     const [buttonClicked, setButtonClicked] = useState('')
+    const [inputValue, setInputValue] = useState('')
     const navigate = useNavigate();
     useEffect(() => {
         setSelectedMovies(data["movies-in-theaters"])
@@ -16,6 +17,7 @@ const AllMovies = ({ moviesData, setMoviesData }) => {
     }, [])
 
     const fetchMovies = (movieType) => {
+        setInputValue('');
         setButtonClicked(movieType)
         setSelectedMovies(moviesData[movieType])
     }
@@ -61,7 +63,9 @@ const AllMovies = ({ moviesData, setMoviesData }) => {
                         )
                         setSelectedMovies(searchedMovie)
                     }
-                }} enterButton />
+                }} value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                enterButton />
             </div>
             <h2 style={{ margin: "17px" }}>{buttonClicked === "favourite" ? "Favourites" : "Movies"}</h2>
             {Array.isArray(selectedMovies) && selectedMovies.length > 0 ?
@@ -105,7 +109,7 @@ const AllMovies = ({ moviesData, setMoviesData }) => {
                                                     icon: <CheckCircleOutlined style={{ color: 'green' }} />,
                                                 });
                                             })}>remove from favourites <CloseSquareOutlined /></div> :
-                                            <div style={{ textTransform: "capitalize" }} onClick={(() => {
+                                            <div style={{ textTransform: "capitalize", cursor: "pointer" }} onClick={(() => {
                                                 if (moviesData?.favourite?.find((item) => item.releaseDate === data.releaseDate && item.title === data.title)) {
                                                     notification.open({
                                                         message: 'error',
